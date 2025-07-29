@@ -7,15 +7,14 @@ const { error } = require('console');
 const app = express();
 
 
+// Middleware
+app.use(cors());
+app.use(express.urlencoded({extended: false})); // Para leer datos de formulario
+
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
 app.use('/public', express.static(`${process.cwd()}/public`));
-
-
-// Middleware
-app.use(cors());
-app.use(express.urlencoded({extended: false})); // Para leer datos de formulario
 
 
 app.get('/', function(req, res) {
@@ -23,7 +22,7 @@ app.get('/', function(req, res) {
 });
 
 // Base de datos tamporal en memoria (podemos cambiar a MOngoBD despues)
-let ursl = [];
+let urls = [];
 let idCounter = 1;
 
 // POST para acortar la URL
@@ -41,14 +40,14 @@ app.post('/api/shorturl', function (req, res) {
       }else {
         // Guardar en memoria
         const short_url = idCounter++;
-        urls.push({original_url: originalUrl, short_url});
-        res.json({original_url: originalUrl, short_url});
+        urls.push({ original_url: originalUrl, short_url });
+        res.json({ original_url: originalUrl, short_url });
       }
-    })
+    });
   } catch (e) {
     res.json({error: 'invalidad url'});
   }
-})
+});
 
 // GET para redirigir desde short_url
 app.get('/api/shorturl/:short_url', function (req, res) {
