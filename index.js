@@ -36,7 +36,7 @@ app.post('/api/shorturl', function (req, res) {
     // VAlidar que sea una  URL existente usando DNS
     dns.lookup(hostname, (err) =>{
       if (err) {
-        return res.json({ error: 'invaildad url'});
+        return res.json({ error: 'invalid url'});
       }else {
         // Guardar en memoria
         const short_url = idCounter++;
