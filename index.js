@@ -45,7 +45,7 @@ app.post('/api/shorturl', function (req, res) {
       }
     });
   } catch (e) {
-    res.json({error: 'invalidad url'});
+    res.json({error: 'invalid url'});
   }
 });
 
